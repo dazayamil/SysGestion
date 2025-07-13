@@ -1,4 +1,4 @@
-package com.techlab.sysgestion.model;
+package com.techlab.sysgestion.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String description;
     private double price;
-    private int quantityInStock;
+    private String category;
+    private String img;
+    private int stock;
 }
