@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Table (name = "user")
+@MappedSuperclass
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,8 @@ public abstract class User {
     protected String name;
     protected String lastName;
 
-    public User(String name){
+    public User(String name, String lastName){
         this.name = name;
-        this.lastName = null;
+        this.lastName = lastName;
     }
 }
