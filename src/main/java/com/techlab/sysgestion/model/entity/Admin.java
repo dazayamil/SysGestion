@@ -10,7 +10,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "admin")
 @NoArgsConstructor
 public class Admin extends User{
-    @Id
     private String password;
     private String email;
+
+    public Admin(String name, String lastName, String password, String email){
+        super(name, lastName);
+        this.password = password;
+        this.email = email;
+    }
 }
