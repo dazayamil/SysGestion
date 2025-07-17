@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "order")
@@ -20,4 +22,7 @@ public class Order {
     private LocalDate date;
     private OrderStatus state;
     private double totalCost;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> items = new ArrayList<>();
 }
