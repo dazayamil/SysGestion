@@ -1,23 +1,29 @@
 package com.techlab.sysgestion.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.aspectj.weaver.ast.Or;
 
 @Entity
 @Table(name = "order_item")
 @Getter
-public class OrderItem extends Item{
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderItem{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private int amount;
+
+    @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public OrderItem(Product product, int amount, Order order){
-        super(product, amount);
-        this.order = order;
-    }
 }

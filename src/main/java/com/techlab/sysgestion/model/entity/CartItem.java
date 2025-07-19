@@ -1,9 +1,13 @@
 package com.techlab.sysgestion.model.entity;
 
 
-public class CartItem extends Item{
+public class CartItem{
+
+    private Product product;
+    private int amount;
 
     public CartItem(Product product, int amount){
-        super(product, amount);
+        this.product = product;
+        this.amount = amount;
     }
 }

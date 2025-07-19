@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order_table")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,9 +20,16 @@ public class Order {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate date;
+
+    @Enumerated(EnumType.STRING)
     private OrderStatus state;
+
     private double totalCost;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
 }
