@@ -4,8 +4,9 @@ import com.techlab.sysgestion.model.entity.Order;
 import com.techlab.sysgestion.model.entity.Product;
 
 public class ItemResponseDto {
-    private Product product;
+    private int productId;
+    private String productName;
+    private double unitPrice;
     private int amount;
-    private Order order;
 
 }

@@ -11,11 +11,6 @@ import java.time.LocalDate;
 
 @Getter
 public class OrderRequestDto {
-    @NotNull(message = "Date is required")
-    @FutureOrPresent
-    private LocalDate date;
     @NotNull(message = "Order status is required")
     private OrderStatus state;
-    @Positive
-    private double totalCost;
 }

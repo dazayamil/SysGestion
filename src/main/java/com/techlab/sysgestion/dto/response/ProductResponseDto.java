@@ -7,5 +7,4 @@ public class ProductResponseDto {
     private double price;
     private String category;
     private String img;
-    private int stock;
 }
