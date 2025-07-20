@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.aspectj.weaver.ast.Or;
 
 @Entity
 @Table(name = "order_item")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderItem{

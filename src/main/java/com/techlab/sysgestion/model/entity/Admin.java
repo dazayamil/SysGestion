@@ -16,11 +16,9 @@ import java.util.List;
 @Getter
 public class Admin extends User{
     private String password;
-    private String email;
 
-    public Admin(String name, String lastName, String password, String email){
-        super(name, lastName);
+    public Admin(String name, String lastName, String email, String password){
+        super(name, lastName, email);
         this.password = password;
-        this.email = email;
     }
 }
