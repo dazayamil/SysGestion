@@ -14,7 +14,5 @@ public class ItemRequestDto {
     @Positive
     @Min(1)
     private int amount;
-    @NotNull(message = "Order ID es required")
-    private int orderId;
 
 }

@@ -17,8 +17,8 @@ import java.util.List;
 public class Client extends User{
     private String phone;
 
-    public Client(String name, String lastName, String phone){
-        super(name, lastName);
+    public Client(String name, String lastName, String email, String phone){
+        super(name, lastName, email);
         this.phone = phone;
     }
 
