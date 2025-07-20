@@ -2,8 +2,10 @@ package com.techlab.sysgestion.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class ProductRequestDto {
     @NotBlank(message = "Name is required")
     @Size(min = 5, max = 20)
