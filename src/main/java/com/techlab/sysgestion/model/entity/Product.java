@@ -3,9 +3,6 @@ package com.techlab.sysgestion.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "product")
 @AllArgsConstructor

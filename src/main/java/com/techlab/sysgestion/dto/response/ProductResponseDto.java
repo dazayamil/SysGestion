@@ -1,5 +1,10 @@
 package com.techlab.sysgestion.dto.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ProductResponseDto {
     private int id;
     private String name;
