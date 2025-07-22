@@ -3,6 +3,7 @@ package com.techlab.sysgestion.controller;
 import com.techlab.sysgestion.dto.request.OrderRequestDto;
 import com.techlab.sysgestion.dto.response.OrderResponseDto;
 import com.techlab.sysgestion.exception.ClientNotFound;
+import com.techlab.sysgestion.exception.InsufficientStockException;
 import com.techlab.sysgestion.exception.OrderNotFound;
 import com.techlab.sysgestion.exception.ProductNotFound;
 import com.techlab.sysgestion.model.enums.OrderStatus;
@@ -30,7 +31,7 @@ public class OrderController {
         try {
             OrderResponseDto response = orderServiceImpl.createOrder(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (ClientNotFound | ProductNotFound e) {
+        } catch (ClientNotFound | ProductNotFound | InsufficientStockException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }

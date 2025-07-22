@@ -8,10 +8,7 @@ import com.techlab.sysgestion.exception.InsufficientStockException;
 import com.techlab.sysgestion.exception.OrderNotFound;
 import com.techlab.sysgestion.exception.ProductNotFound;
 import com.techlab.sysgestion.mapper.OrderMapper;
-import com.techlab.sysgestion.model.entity.Client;
-import com.techlab.sysgestion.model.entity.Order;
-import com.techlab.sysgestion.model.entity.OrderItem;
-import com.techlab.sysgestion.model.entity.Product;
+import com.techlab.sysgestion.model.entity.*;
 import com.techlab.sysgestion.model.enums.OrderStatus;
 import com.techlab.sysgestion.repository.ClientRepository;
 import com.techlab.sysgestion.repository.OrderRepository;
@@ -48,23 +45,6 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new ClientNotFound("Client not found with id: " + clientId));
     }
 
-    private List<OrderItem> verifyAndCreatedOrderItems(List<OrderItemRequestDto> itemsDto, Order order) throws ProductNotFound, InsufficientStockException{
-        return itemsDto.stream().map(itemDto ->{
-            Product product = productRepository.findById(itemDto.getProductId())
-                    .orElseThrow(() -> new ProductNotFound("Product not found with id: " + itemDto.getProductId()));
-
-            if(itemDto.getAmount() > product.getStock()){
-                throw new InsufficientStockException("Not enough stock for product: " + product.getName());
-            }
-
-            OrderItem orderItem = new OrderItem();
-            orderItem.setProduct(product);
-            orderItem.setAmount(itemDto.getAmount());
-            orderItem.setOrder(order);
-            return orderItem;
-        }).collect(Collectors.toList());
-    }
-
     private void updateStock(List<OrderItem> items){
         items.forEach(item -> {
             Product product = item.getProduct();
@@ -80,19 +60,34 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponseDto createOrder(OrderRequestDto dto) {
-        Client client = verifyClient(dto.getClienteId());
+    public OrderResponseDto createOrder(int clientId, Cart cart) {
+        Client client = verifyClient(clientId);
 
         Order order = new Order();
         order.setDate(LocalDate.now());
         order.setState(OrderStatus.IN_PROGRESS);
         order.setClient(client);
 
-        List<OrderItem> items = verifyAndCreatedOrderItems(dto.getItems(), order);
+        List<OrderItem> items = cart.getItems().stream().map(cartItem -> {
+            Product product = productRepository.findById(cartItem.getProduct().getId())
+                    .orElseThrow(() -> new ProductNotFound("Product not found with id: " + cartItem.getProduct().getId()));
+
+            if (cartItem.getAmount() > product.getStock()) {
+                throw new InsufficientStockException("Not enough stock for product: " + product.getName());
+            }
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.setProduct(product);
+            orderItem.setAmount(cartItem.getAmount());
+            orderItem.setOrder(order);
+            return orderItem;
+        }).collect(Collectors.toList());
+
         order.setItems(items);
         order.setTotalCost(calculateTotalCost(items));
         Order saveOrder = orderRepository.save(order);
         updateStock(items);
+        cart.clearCart();
         return orderMapper.toResponse(saveOrder);
     }
 
