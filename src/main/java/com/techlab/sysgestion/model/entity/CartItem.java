@@ -1,6 +1,11 @@
 package com.techlab.sysgestion.model.entity;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CartItem{
 
     private Product product;
