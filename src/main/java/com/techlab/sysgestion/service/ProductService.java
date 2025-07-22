@@ -10,6 +10,6 @@ public interface ProductService {
     ProductResponseDto createProduct(ProductRequestDto dto);
     ProductResponseDto getProductById(int id) throws ProductNotFound;
     List<ProductResponseDto> getAllProducts();
-    ProductResponseDto updateProduct(int id, ProductRequestDto dto);
-    void deleteProduct(int id);
+    ProductResponseDto updateProductById(int id, ProductRequestDto dto);
+    void deleteProductById(int id);
 }
