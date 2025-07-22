@@ -28,6 +28,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto createProduct(ProductRequestDto dto){
         dto.setName(Format.formatName(dto.getName()));
+        dto.setDescription(Format.formatName(dto.getDescription()));
+        dto.setCategory(Format.formatName(dto.getCategory()));
         Product product = productMapper.toEntity(dto);
         Product saveProduct = productRepository.save(product);
         return productMapper.toResponse(saveProduct);
@@ -49,14 +51,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(int id) throws ProductNotFound{
+    public void deleteProductById(int id) throws ProductNotFound{
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFound("Product not found with id: " + id));
         productRepository.delete(product);
     }
 
     @Override
-    public ProductResponseDto updateProduct(int id, ProductRequestDto dto) throws ProductNotFound{
+    public ProductResponseDto updateProductById(int id, ProductRequestDto dto) throws ProductNotFound{
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFound("Product not found with id: " + id));
 

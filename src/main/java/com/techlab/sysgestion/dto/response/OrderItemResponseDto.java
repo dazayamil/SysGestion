@@ -1,9 +1,6 @@
 package com.techlab.sysgestion.dto.response;
 
-import com.techlab.sysgestion.model.entity.Order;
-import com.techlab.sysgestion.model.entity.Product;
-
-public class ItemResponseDto {
+public class OrderItemResponseDto {
     private int productId;
     private String productName;
     private double unitPrice;
